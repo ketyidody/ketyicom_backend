@@ -1,0 +1,20 @@
+twig:
+  form_themes:
+    - '@EasyMedia/form/easy-media.html.twig'
+
+doctrine:
+  dbal:
+    types:
+      easy_media_type: Adeliom\EasyMediaBundle\Types\EasyMediaType
+
+flysystem:
+  storages:
+    medias.storage:
+      adapter: 'local'
+      options:
+        directory: '%kernel.project_dir%/public'
+
+easy_media:
+  storage_name: medias.storage
+  media_entity: App\Entity\EasyMedia\Media
+  folder_entity: App\Entity\EasyMedia\Folder
