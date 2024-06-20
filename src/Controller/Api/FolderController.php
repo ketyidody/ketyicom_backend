@@ -18,7 +18,11 @@ class FolderController extends AbstractController
 
         return new JsonResponse([
             'success' => true,
-            'items' => collect($folders)->map(fn (Folder $folder) => ['id' => $folder->getId(), 'slug' => $folder->getSlug(), 'name' => $folder->getName()])
+            'items' => collect($folders)->map(fn (Folder $folder) => [
+                'id' => $folder->getId(), 
+                'slug' => $folder->getSlug(), 
+                'name' => $folder->getName()
+            ])
         ]);
     }
 }

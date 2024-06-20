@@ -22,21 +22,15 @@ class GalleryController extends AbstractController
 
         $medias = $mediaRepository->findBy(['folder' => $mainFolder]);
 
-        $mediaPaths = [];
-        /** @var Media $media */
-        foreach ($medias as $media) {
-            $mediaPaths[$media->getId()] = [
+        return new JsonResponse([
+            'success' => true,
+            'items' => collect($medias)->map(fn(Media $media, CacheManager $cacheManager) => [
                 'id' => $media->getId(),
                 'name' => $media->getMeta('title'),
                 'description' => $media->getMeta('description'),
                 'path' => $media->getPath(),
                 'thumbnailPath' => $cacheManager->getBrowserPath($media->getPath(), 'thumbnail'),
-            ];
-        }
-
-        return new JsonResponse([
-            'success' => true,
-            'items' => $mediaPaths,
+            ]),
         ]);
     }
 
@@ -49,21 +43,15 @@ class GalleryController extends AbstractController
 
         $medias = $mediaRepository->findBy(['folder' => $mainFolder]);
 
-        $mediaPaths = [];
-        /** @var Media $media */
-        foreach ($medias as $media) {
-            $mediaPaths[$media->getId()] = [
+        return new JsonResponse([
+            'success' => true,
+            'items' => collect($medias)->map(fn(Media $media) => [
                 'id' => $media->getId(),
                 'name' => $media->getMeta('title'),
                 'description' => $media->getMeta('description'),
-                'path' => $media->getPath(),
+                'path' => $cacheManager->getBrowserPath($media->getPath(), 'web'),
                 'thumbnailPath' => $cacheManager->getBrowserPath($media->getPath(), 'thumbnail'),
-            ];
-        }
-
-        return new JsonResponse([
-            'success' => true,
-            'items' => $mediaPaths,
+            ]),
         ]);
     }
 }

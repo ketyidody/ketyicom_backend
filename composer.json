@@ -15,6 +15,7 @@
         "easycorp/easyadmin-bundle": "^4.10",
         "friendsofsymfony/ckeditor-bundle": "^2.5",
         "gedmo/doctrine-extensions": "^3.14",
+        "lexik/jwt-authentication-bundle": "^3.0",
         "liip/imagine-bundle": "^2.12",
         "nelmio/cors-bundle": "^2.4",
         "phpdocumentor/reflection-docblock": "^5.4",
