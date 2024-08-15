@@ -51,6 +51,10 @@ class GalleryController extends AbstractController
                 'description' => $media->getMeta('description'),
                 'path' => $cacheManager->getBrowserPath($media->getPath(), 'web'),
                 'thumbnailPath' => $cacheManager->getBrowserPath($media->getPath(), 'thumbnail'),
+                'path480' => $cacheManager->getBrowserPath($media->getPath(), 'web480'),
+                'path800' => $cacheManager->getBrowserPath($media->getPath(), 'web800'),
+                'path1280' => $cacheManager->getBrowserPath($media->getPath(), 'web1280'),
+                'path1600' => $cacheManager->getBrowserPath($media->getPath(), 'web1600'),
             ]),
         ]);
     }
