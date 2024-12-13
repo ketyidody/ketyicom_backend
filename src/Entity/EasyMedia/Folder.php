@@ -10,10 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'easy_media__folder')]
 class Folder extends BaseFolder
 {
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    protected bool $hidden = false;
+
     #[ORM\ManyToOne(targetEntity: Folder::class, inversedBy: 'children')]
     #[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'id')]
     protected ?BaseFolder $parent = null;
 
     #[ORM\OneToMany(targetEntity: Folder::class, mappedBy: 'parent')]
     protected Collection $children;
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

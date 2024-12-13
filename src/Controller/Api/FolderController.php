@@ -18,7 +18,7 @@ class FolderController extends AbstractController
     {
         $folderRepository = $entityManager->getRepository(Folder::class);
         $mediaRepository = $entityManager->getRepository(Media::class);
-        $folders = $folderRepository->findAll();
+        $folders = $folderRepository->findBy(['hidden' => false]);
 
         return new JsonResponse([
             'success' => true,
