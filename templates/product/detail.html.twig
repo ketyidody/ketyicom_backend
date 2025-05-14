@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/styles/lc_lightbox.min.css" />
+    <link rel="stylesheet" href="/styles/lightbox_skins/minimal.css" />
+{% endblock %}
+
+{% block title %}ketyi.com{% endblock %}
+
+{% block body %}
+    <div class="products-page">
+        <h1>{{ product.title }}</h1>
+        <h2>{{ product.description|raw }}</h2>
+        {{ include('components/productDetail.html.twig') }}
+    </div>
+{% endblock %}

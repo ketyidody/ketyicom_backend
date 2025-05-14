@@ -1,0 +1,54 @@
+    <div class="product-list grid grid-cols-4 gap-4">
+        {% for product in products %}
+            <div class="product-card">
+                <a href="{{ path('product_detail', {productId: product.id}) }}">
+                    <img src="{{ product.photo }}" alt="{{ product.title }}" class="w-full h-64 object-cover" />
+                </a>
+                <div class="product-info">
+                    <h3>{{ product.title }}</h3>
+                    <p>€{{ product.price }}</p>
+                    <button data-product-id="{{ product.id }}"
+                            class="add-to-cart-btn w-full mt-4 bg-white text-black py-2 rounded hover:bg-gray-200 transition duration-300">
+                        Add to Cart
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+<script type="text/javascript">
+    $(function() {
+        checkCartItems()
+
+        $('.add-to-cart-btn').on('click', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            var cartItems = JSON.parse(localStorage.getItem('cart'))
+            var cartCount = cartItems ? cartItems.length : 0
+            const productId = $(this).data('product-id')
+            cartItems = cartItems || []
+            cartItems.push(productId)
+            cartCount++
+            localStorage.setItem('cart', JSON.stringify(cartItems))
+            $(document).trigger('cart-updated');
+            checkCartItems()
+        })
+
+        function checkCartItems() {
+            var unparsedCartItems = localStorage.getItem('cart')
+            var cartItems = []
+            if (unparsedCartItems !== '') {
+                cartItems = JSON.parse(unparsedCartItems)
+            } else {
+                localStorage.setItem('cart', JSON.stringify(cartItems))
+            }
+
+            $('.add-to-cart-btn').each(function() {
+                if (cartItems.includes($(this).data('product-id'))) {
+                    $(this).attr('disabled', 'disabled')
+                    $(this).addClass('disabled')
+                }
+            })
+        }
+    })
+</script>

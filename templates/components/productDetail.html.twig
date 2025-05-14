@@ -1,0 +1,85 @@
+<div class="product-detail">
+    <div class="product-cover-wrapper">
+        <img src="{{ product.photo }}" alt="{{ product.title }}" class="w-full h-64 object-cover product-cover-image" />
+        <div class="product-cover-overlay">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"/>
+            </svg>
+        </div>
+    </div>
+    <div class="product-images hidden">
+        {% for image in product.images %}
+            <a
+                class="elem"
+                href="{{ image.path }}"
+                data-lcl-txt="{{ image.name }}"
+                data-lcl-author="Jozef Kétyi"
+                data-lcl-thumb="{{ image.thumb }}"
+            >
+                <img src="{{ image.thumb }}" alt="{{ image.name }}" class="w-full h-64 object-cover" />
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="product-info">
+        <h3>{{ product.title }}</h3>
+        <p>{{ product.description|raw }}</p>
+        <div class="product-price">€{{ product.price }}</div>
+        <button data-product-id="{{ product.id }}"
+                class="add-to-cart-btn w-full mt-4 bg-white text-black py-2 rounded hover:bg-gray-200 transition duration-300">
+            Add to Cart
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        checkCartItems()
+
+        $('.product-cover-wrapper').on('click', function() {
+            $('.elem').first().click()
+        })
+
+        lc_lightbox('.elem', {
+            wrap_class: 'lcl_fade_oc',
+            gallery : true,
+            thumb_attr: 'data-lcl-thumb',
+
+            skin: 'minimal',
+            radius: 0,
+            padding	: 0,
+            border_w: 0,
+        });
+
+        $('.add-to-cart-btn').on('click', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            var cartItems = JSON.parse(localStorage.getItem('cart'))
+            var cartCount = cartItems ? cartItems.length : 0
+            const productId = $(this).data('product-id')
+            cartItems = cartItems || []
+            cartItems.push(productId)
+            cartCount++
+            localStorage.setItem('cart', JSON.stringify(cartItems))
+            $(document).trigger('cart-updated');
+            checkCartItems()
+        })
+
+        function checkCartItems() {
+            var unparsedCartItems = localStorage.getItem('cart')
+            var cartItems = []
+            if (unparsedCartItems !== '') {
+                cartItems = JSON.parse(unparsedCartItems)
+            } else {
+                localStorage.setItem('cart', JSON.stringify(cartItems))
+            }
+
+            $('.add-to-cart-btn').each(function() {
+                if (cartItems.includes($(this).data('product-id'))) {
+                    $(this).attr('disabled', 'disabled')
+                    $(this).addClass('disabled')
+                }
+            })
+        }
+    })
+</script>

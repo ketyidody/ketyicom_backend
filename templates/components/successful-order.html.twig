@@ -1,0 +1,22 @@
+<section data-name="about" id="about" class="py-20 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div data-name="about-image" class="rounded-lg overflow-hidden">
+                <img src="images/dody.jpg" alt="Photographer" class="w-full h-[500px] object-cover" />
+            </div>
+            <div data-name="about-content" class="text-white">
+                <h2 class="text-3xl font-bold mb-6">Thank you for your order</h2>
+                <p class="mb-6">
+                    We will get back to you soon.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function() {
+        localStorage.setItem('cart', JSON.stringify([]))
+        $(document).trigger('cart-updated');
+    })
+</script>

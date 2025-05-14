@@ -1,0 +1,77 @@
+<nav data-name="navbar" class="bg-black bg-opacity-90 fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <span data-name="logo" class="text-white text-xl font-bold">PHOTO</span>
+            </div>
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-4">
+                    <a data-name="nav-home" href="#home"
+                       class="text-gray-300 hover:text-white px-3 py-2">Home</a>
+                    <a data-name="nav-portfolio" href="#portfolio"
+                       class="text-gray-300 hover:text-white px-3 py-2">Portfolio</a>
+                    <a data-name="nav-about" href="#about"
+                       class="text-gray-300 hover:text-white px-3 py-2">About</a>
+                    <a data-name="nav-shop" href="#shop"
+                       class="text-gray-300 hover:text-white px-3 py-2">Shop</a>
+                    <a class="cart-icon cart-toggle-button">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <Badge class="cart-count" bg="danger" pill="true"></Badge>
+                    </a>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <button data-name="mobile-menu-button" class="text-gray-300 hover:text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div data-name="mobile-menu" class="md:hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a data-name="mobile-nav-home" href="#home"
+               class="text-gray-300 hover:text-white block px-3 py-2">Home</a>
+            <a data-name="mobile-nav-portfolio" href="#portfolio"
+               class="text-gray-300 hover:text-white block px-3 py-2">Portfolio</a>
+            <a data-name="mobile-nav-about" href="#about"
+               class="text-gray-300 hover:text-white block px-3 py-2">About</a>
+            <a data-name="mobile-nav-shop" href="#shop"
+               class="text-gray-300 hover:text-white block px-3 py-2">Shop</a>
+            <a class="text-gray-300 hover:text-white block px-3 py-2 cart-toggle-button">
+                Cart
+                <Badge class="cart-count-mobile" bg="danger" pill="true"></Badge>
+            </a>
+
+        </div>
+    </div>
+</nav>
+<div class="cart-container hidden"></div>
+
+<script type="text/javascript">
+    $(function() {
+        var cartItems = JSON.parse(localStorage.getItem('cart'))
+        cartItems = cartItems || []
+        $('.cart-count').text(cartItems.length)
+
+        $('.cart-toggle-button').on('click', function() {
+            $.ajax({
+                url: '/api/cart',
+                method: 'GET',
+                success: function(data) {
+                    $('body').addClass('cart-open')
+                    $('.cart-container').html(data)
+                    $('.cart-container').show()
+
+                    $('.close-cart').on('click', function() {
+                        $('.cart-container').hide()
+                        $('body').removeClass('cart-open')
+                    })
+                    $('.cart-overlay-backdrop').on('click', function() {
+                        $('.cart-container').hide()
+                        $('body').removeClass('cart-open')
+                    })
+                }
+            })
+        })
+    })
+</script>

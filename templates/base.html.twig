@@ -1,17 +1,58 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{#    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>#}
+{#    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>#}
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="{{ asset('js/manifest.json') }}" />
+    <title>{% block title %}ketyi.com{% endblock %}</title>
+    <script src="{{ asset('js/alloy_finger.min.js') }}"></script>
+    <script src="{{ asset('js/lc_lightbox.lite.min.js') }}"></script>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+
+</head>
+<body>
+    <div class="site-container">
+        {{ include('components/navbar.html.twig') }}
         {% block body %}{% endblock %}
-    </body>
+    </div>
+    {{ include('components/footer.html.twig') }}
+
+    <script>
+        $(function() {
+            $(document).on('cart-updated', function(e) {
+                var cartItems = JSON.parse(localStorage.getItem('cart'))
+                var count = cartItems ? cartItems.length : 0
+                $('.cart-count').text(count)
+
+                $('.add-to-cart-btn').each(function() {
+                    $(this).attr('disabled', false)
+                    $(this).removeClass('disabled')
+
+                    if (cartItems.includes($(this).data('product-id'))) {
+                        $(this).attr('disabled', 'disabled')
+                        $(this).addClass('disabled')
+                    }
+                })
+            });
+        })
+    </script>
+</body>
 </html>

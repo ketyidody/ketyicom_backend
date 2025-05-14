@@ -1,0 +1,61 @@
+<section data-name="shop" id="shop" class="py-20 bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 data-name="shop-title" class="text-3xl font-bold text-white mb-12 text-center">Shop</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for item in products %}
+                <a data-name="{shop-item-{{ item.id }}" data-key="{{ item.id }}"
+                   class="shop-item bg-black rounded-lg overflow-hidden"
+                   href="{{ path('product_detail', {productId: item.id}) }}"
+                >
+                    <img src="{{ item.photo }}" alt="{{ item.title }}" class="w-full h-64 object-cover" />
+                    <div class="p-6">
+                        <span class="text-sm text-gray-400">{{ item.type }}</span>
+                        <h3 class="text-xl text-white font-bold mt-2">{{ item.title }}</h3>
+                        <p class="text-gray-300 mt-2">€{{ item.price }}</p>
+                        <button data-product-id="{{ item.id }}"
+                            class="add-to-cart-btn w-full mt-4 bg-white text-black py-2 rounded hover:bg-gray-200 transition duration-300">
+                            Add to Cart
+                        </button>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(function() {
+        checkCartItems()
+
+        $('.add-to-cart-btn').on('click', function(e) {
+            e.preventDefault()
+            e.stopPropagation()
+            var cartItems = JSON.parse(localStorage.getItem('cart'))
+            var cartCount = cartItems ? cartItems.length : 0
+            const productId = $(this).data('product-id')
+            cartItems = cartItems || []
+            cartItems.push(productId)
+            cartCount++
+            localStorage.setItem('cart', JSON.stringify(cartItems))
+            $(document).trigger('cart-updated');
+            checkCartItems()
+        })
+
+        function checkCartItems() {
+            var unparsedCartItems = localStorage.getItem('cart')
+            var cartItems = []
+            if (unparsedCartItems !== '') {
+                cartItems = JSON.parse(unparsedCartItems)
+            } else {
+                localStorage.setItem('cart', JSON.stringify(cartItems))
+            }
+
+            $('.add-to-cart-btn').each(function() {
+                if (cartItems.includes($(this).data('product-id'))) {
+                    $(this).attr('disabled', 'disabled')
+                    $(this).addClass('disabled')
+                }
+            })
+        }
+    })
+</script>

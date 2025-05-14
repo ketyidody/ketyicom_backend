@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ketyi.com{% endblock %}
+
+{% block body %}
+    <div class="products-page">
+        <h1>Shop</h1>
+        <h2>Here you can order calendars, books and prints.</h2>
+        {{ include('components/productList.html.twig') }}
+    </div>
+{% endblock %}

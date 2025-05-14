@@ -19,7 +19,7 @@ class ProductController extends AbstractController
         $products = $entityManager->getRepository(Product::class)->findAll();
         $mediasRepository = $entityManager->getRepository(Media::class);
 
-        $productsArray = array_map(function($product) use ($mediasRepository, $cacheManager) {
+        $productsArray = array_map(function(Product $product) use ($mediasRepository, $cacheManager) {
             $medias = $mediasRepository->findBy(['folder' => $product->getFolder()]);
 
             $mediasCollection = collect($medias)->map(function(Media $media) use ($cacheManager) {
@@ -40,6 +40,7 @@ class ProductController extends AbstractController
                 'description' => $product->getDescription(),
                 'price' => (float) $product->getPrice(),
                 'photos' => $mediasCollection->toArray(),
+                'type' => $product->getType(),
             ];
         }, $products);
 

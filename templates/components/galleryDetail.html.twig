@@ -1,0 +1,29 @@
+<div class="gallery-detail">
+    {% for image in images %}
+        <a
+            class="elem"
+            href="{{ image.path }}"
+            data-lcl-txt="{{ image.name }}"
+            data-lcl-author="Jozef Kétyi"
+            data-lcl-thumb="{{ image.thumbnail }}"
+        >
+            <img src="{{ image.thumbnail }}" alt="{{ image.name }}" class="w-full h-64 object-cover" />
+        </a>
+    {% endfor %}
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // live handler
+        lc_lightbox('.elem', {
+            wrap_class: 'lcl_fade_oc',
+            gallery : true,
+            thumb_attr: 'data-lcl-thumb',
+
+            skin: 'minimal',
+            radius: 0,
+            padding	: 0,
+            border_w: 0,
+        });
+    });
+</script>

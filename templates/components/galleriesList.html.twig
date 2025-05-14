@@ -1,0 +1,14 @@
+<div class="gallery-list grid grid-cols-4 gap-4">
+    {% for gallery in galleries %}
+        <a data-name="portfolio-item-{{ gallery.id }}" key="{{ gallery.id }}"
+             class="portfolio-item relative overflow-hidden rounded-lg"
+             href="{{ path('gallery_detail', {galleryId: gallery.id}) }}"
+        >
+            <img src="{{ gallery.preview }}" alt="{{ gallery.name }}" class="w-full h-64 object-cover"/>
+            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                <h3 class="text-lg font-semibold">{{ gallery.name }}</h3>
+                <p class="text-sm text-gray-300">{{ gallery.slug }}</p>
+            </div>
+        </a>
+    {% endfor %}
+</div>

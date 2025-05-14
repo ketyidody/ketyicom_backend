@@ -1,0 +1,12 @@
+<li id="cart-product-row-{{ product.id }}">
+    <div class="product-detail">
+        <div>
+            <img src="{{ product.photo.path800 }}" alt="{{ product.title }}" class="w-full h-64 object-cover product-cover-image" />
+        </div>
+        <div class="vgap-10"></div>
+        <div class="product-info">
+            <h3>{{ product.title }}</h3>
+            <div class="product-price">€{{ product.price }}</div>
+        </div>
+    </div>
+</li>

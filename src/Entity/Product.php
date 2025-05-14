@@ -23,6 +23,9 @@ class Product
     #[ORM\Column]
     private ?float $price = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     #[ORM\OneToOne(targetEntity: Folder::class)]
     #[ORM\JoinColumn(name: 'folder_id', referencedColumnName: 'id')]
     private Folder|null $folder = null;
@@ -79,6 +82,17 @@ class Product
     public function setFolder(Folder $folder): static
     {
         $this->folder = $folder;
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
         return $this;
     }
 }
