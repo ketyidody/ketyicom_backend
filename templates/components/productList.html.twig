@@ -44,7 +44,7 @@
             }
 
             $('.add-to-cart-btn').each(function() {
-                if (cartItems.includes($(this).data('product-id'))) {
+                if (cartItems && cartItems.includes($(this).data('product-id'))) {
                     $(this).attr('disabled', 'disabled')
                     $(this).addClass('disabled')
                 }

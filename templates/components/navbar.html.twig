@@ -24,13 +24,13 @@
                 </div>
             </div>
             <div class="md:hidden">
-                <button data-name="mobile-menu-button" class="text-gray-300 hover:text-white">
+                <button data-name="mobile-menu-button" class="mobile-menu-button text-gray-300 hover:text-white">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
     </div>
-    <div data-name="mobile-menu" class="md:hidden">
+    <div data-name="mobile-menu" class="mobile-menu md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a data-name="mobile-nav-home" href="{{ path('homepage') }}"
                class="text-gray-300 hover:text-white block px-3 py-2">Home</a>
@@ -55,5 +55,9 @@
         var cartItems = JSON.parse(localStorage.getItem('cart'))
         cartItems = cartItems || []
         $('.cart-count').text(cartItems.length)
+
+        $('.mobile-menu-button').on('click', function() {
+            $('.mobile-menu').toggleClass('open');
+        })
     })
 </script>

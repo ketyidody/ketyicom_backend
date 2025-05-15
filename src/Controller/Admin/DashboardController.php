@@ -36,12 +36,12 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        // Shop section
+//         Shop section
         yield MenuItem::section('Shop');
         yield MenuItem::linkToCrud('Products', 'fa fa-shopping-bag', Product::class);
         yield MenuItem::linkToCrud('Orders', 'fa fa-shopping-cart', Order::class);
 
-        // Media section
+//         Media section
         yield MenuItem::section('Media');
         yield MenuItem::linkToRoute('Media Library', 'fa fa-image', 'media.index');
     }

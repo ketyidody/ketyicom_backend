@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class GalleryController extends AbstractController
 {
-    #[Route('/galleries', name: 'galleries_list')]
+    #[Route('/portfolio', name: 'galleries_list')]
     public function galleryList(EntityManagerInterface $entityManager, CacheManager $cacheManager): Response
     {
         $folderRepository = $entityManager->getRepository(Folder::class);
@@ -34,7 +34,7 @@ class GalleryController extends AbstractController
         ]);
     }
 
-    #[Route('/galleries/{galleryId}', name: 'gallery_detail')]
+    #[Route('/portfolio/{galleryId}', name: 'gallery_detail')]
     public function galleryDetail(
         int $galleryId,
         EntityManagerInterface $entityManager,

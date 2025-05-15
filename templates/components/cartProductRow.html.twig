@@ -4,9 +4,32 @@
             <img src="{{ product.photo.path800 }}" alt="{{ product.title }}" class="w-full h-64 object-cover product-cover-image" />
         </div>
         <div class="vgap-10"></div>
-        <div class="product-info">
-            <h3>{{ product.title }}</h3>
-            <div class="product-price">€{{ product.price }}</div>
+        <div class="cart-product-info">
+            <div class="product-info-left">
+                <h3>{{ product.title }}</h3>
+                <div class="product-price">€{{ product.price }}</div>
+            </div>
+            <div class="delete-btn-container">
+                <a href="javascript:void(0)" class="delete-btn" data-product-id="{{ product.id }}">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
         </div>
     </div>
 </li>
+
+<script type="text/javascript">
+    $('.delete-btn').on('click', function() {
+        let productId = $(this).data('product-id')
+        let cartItems = JSON.parse(localStorage.getItem('cart'))
+        cartItems = cartItems.filter(item => item !== productId)
+        localStorage.setItem('cart', JSON.stringify(cartItems))
+        $(document).trigger('cart-updated');
+        $('#cart-product-row-' + productId).remove()
+
+        if(cartItems.length === 0) {
+            $('#container-on-non-empty-cart').hide();
+            $('#container-on-empty-cart').show();
+        }
+    })
+</script>

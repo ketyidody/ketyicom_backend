@@ -23,6 +23,10 @@ h2 {
     font-family: 'Righteous', cursive !important;
     letter-spacing: 2px !important;
     text-align: center !important;
+
+    a:hover {
+        transform: scale(1.2) !important;
+    }
 }
 
 .site-container {
@@ -139,14 +143,29 @@ a {
             border: 1px solid #ccc;
             border-radius: 5px;
             width: 100%;
-            margin-bottom: 10px;
         }
     }
+}
+
+.cart-product-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.delete-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px;
 }
 
 .user-information {
     flex: 2;
     margin: 20px;
+
+    @media (max-width: 725px) {
+        width: 90%;
+    }
 }
 
 .cart-title {
@@ -218,6 +237,12 @@ a {
     padding-top: 100px;
     padding-bottom: 100px;
     margin: 0 20vw;
+
+    @media (max-width: 725px) {
+        justify-content: space-around;
+        margin: 10vw;
+        grid-template-columns: none !important;
+    }
 }
 
 .product-list {
@@ -225,6 +250,12 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
     padding-top: 2rem;
+
+    @media (max-width: 725px) {
+        justify-content: space-around;
+        margin: 0;
+        grid-template-columns: none !important;
+    }
 }
 
 .product-card {
@@ -244,6 +275,12 @@ a {
     padding-top: 100px;
     padding-bottom: 100px;
     margin: 0 20vw;
+
+    @media (max-width: 725px) {
+        justify-content: space-around;
+        margin: 0;
+        grid-template-columns: none !important;
+    }
 }
 
 .cart-content {
@@ -270,6 +307,13 @@ a {
     margin: 0 20vw;
     align-items: flex-start;
     padding: 4% 0;
+
+    @media (max-width: 725px) {
+        justify-content: space-around;
+        margin: 0;
+        grid-template-columns: none !important;
+        flex-direction: column;
+    }
 }
 
 .gallery-detail {
@@ -287,6 +331,17 @@ a {
         object-fit: cover;
         margin-bottom: 10px;
         padding: 10px;
+    }
+
+    @media (max-width: 725px) {
+        justify-content: space-around;
+        margin: 0;
+        grid-template-columns: none !important;
+
+        img {
+            width: 90vw;
+            height: auto;
+        }
     }
 }
 
@@ -339,4 +394,15 @@ button {
 
 .vgap-10 {
     height: 10px;
+}
+
+.mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+
+    &.open {
+        max-height: 100vh;
+        transition: max-height 0.5s ease;
+    }
 }
